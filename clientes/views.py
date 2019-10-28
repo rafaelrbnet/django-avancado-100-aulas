@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 from .models import Person
 from .forms import PersonForm
-
-
-@login_required
-def persons_list(request):
-    persons = Person.objects.all()
-    return render(request, 'person.html', {'persons': persons})
+from django.views.generic.list import ListView
 
 
 @login_required
@@ -41,3 +38,10 @@ def persons_delete(request, id):
         return redirect('person_list')
 
     return render(request, 'person_delete_confirm.html', {'person': person})
+
+
+@method_decorator(login_required, name='dispatch')
+class PersonList(ListView):
+    model = Person
+    paginate_by = 1
+
