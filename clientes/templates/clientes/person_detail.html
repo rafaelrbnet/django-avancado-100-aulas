@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %} Administracao {% endblock %}
+
+{% block main %}
+    <h3>Informações do cliente</h3>
+
+    <p>
+        First name<br>{{ object.first_name }}
+    </p>
+    <p>Last name<br>{{ object.last_name }}
+    </p>
+
+    <p>Age<br>{{ object.age }}
+    </p>
+
+    <p>Salary<br>{{ object.salary }}
+    </p>
+
+    <p>Bio<br>{{ object.bio|linebreaksbr }}
+    </p>
+
+    <p>Photo<br>
+        {% if object.photo %}
+            <img src="/media/{{ object.photo }}">
+        {% else %}
+            Sem foto
+        {% endif %}
+    </p>
+    <a class="btn btn-light" href="{% url 'person_list' %}" role="button">Voltar</a>
+    <a class="btn btn-primary pull-right" href="{% url 'persons_update' person.id %}" role="button">Alterar</a>
+
+{% endblock %}
+
